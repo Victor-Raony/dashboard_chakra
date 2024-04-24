@@ -1,5 +1,6 @@
 import { Box, Flex, Button, Icon, Heading, Table, Thead,  Tr, Th, Checkbox, Tbody, Td, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RiAddLine } from "react-icons/ri";
+import { useQuery } from 'react-query';
 
 import Link from "next/link";
 
@@ -7,8 +8,19 @@ import { Header} from "@/src/components/Header";
 import { Sidebar } from "@/src/components/Sidebar";
 import Pagitation from "@/src/components/Pagination";
 
+import { useEffect } from "react";
 
 export default function UserList(){
+
+  const query = useQuery('users', async () => {
+    const response = await fetch('http://localhost:3000/api/users')
+    const data = await response.json()
+
+    return data;
+  })
+
+  console.log(query)
+
 
   const isWideVersion = useBreakpointValue({
     base: false,
